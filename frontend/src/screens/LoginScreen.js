@@ -7,8 +7,11 @@ import Message from '../components/Message'
 import FormContainer from '../components/FormContainer'
 import { login } from '../actions/userActions'
 import { useNavigate } from 'react-router-dom' 
+import { useSearchParams } from 'react-router-dom'
 
 function LoginScreen() {
+  const [searchParams] = useSearchParams()
+  const redirect = searchParams.get('redirect') ? ('/' + searchParams.get('redirect')) : '/'
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const navigate = useNavigate()
@@ -18,7 +21,7 @@ function LoginScreen() {
 
   useEffect(() => {
     if (userInfo) {
-        navigate('/')
+      navigate(redirect)
     }
   }, [navigate, userInfo])
 
